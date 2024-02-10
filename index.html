@@ -28,7 +28,7 @@
                 <div class="col-sm ">
                     <div class="card align-items-center bg-dark  rounded-sm-circle">
                         <div class="card-body text-light text-center">
-                            <h3>2000</h3>
+                            <div class="fs-1 fw-bold" id="dailyLimit"></div >
                             <h5>Daily Calorie Limit</h5>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                 <div class="col-sm ">
                     <div class="card align-items-center bg-lightLime  rounded-sm-circle">
                         <div class="card-body text-light text-center">
-                            <h3>400</h3>
+                            <div id="calories-total" class="fs-1 fw-bold">400</div>
                             <h5>Gain/Loss</h5>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                 <div class="col-sm ">
                     <div class="card align-items-center bg-light  rounded-sm-circle">
                         <div class="card-body text-center">
-                            <h3>2000</h3>
+                            <div class="fs-1 fw-bold" id="caloriesConsumed"></div>
                             <h5 class="">Calories Consumed</h5>
                         </div>
                     </div>
@@ -62,8 +62,8 @@
                 </div>
                 <div class="col-sm ">
                     <div class="card align-items-center bg-light  rounded-sm-circle">
-                        <div class="card-body  text-center">
-                            <h3>400</h3>
+                        <div  class="card-body  text-center">
+                            <div  class="fs-1 fw-bold" id="caloriesBurned"></div>
                             <h5 class="">Calories Burned</h5>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                 <div class="col-sm ">
                     <div class="card align-items-center bg-light  rounded-sm-circle">
                         <div class="card-body  text-center">
-                            <h3>400</h3>
+                            <div class="fs-1 fw-bold" id="caloriesRemaining">200</div>
                             <h5 class="">Calories Remaining</h5>
                         </div>
                     </div>
@@ -84,7 +84,13 @@
 <!-- progress bar -->
     <section class="pt-5">
         <div class="container">
-                    <div id="progressBar" class=" progressBar bg-lightGray p-2 rounded-pill"></div>
+                    <div class="progress">
+                    <div id="progressBar" 
+                    class=" progress-bar"
+                    role="progressbar"
+                   ></div>
+
+        </div>
 
         </div>
     </section>
@@ -94,7 +100,7 @@
 
     <section class="pt-5 ">
         <div class="container">
-            <div class="row">
+            <div class="row g-4">
                 <!--food items  -->
                 <div class="col-md">
                     <input type="text" class="form-control  filterMeals" placeholder="Filter Meals">
@@ -193,5 +199,6 @@
     </div>
   </div>
   <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>   
+<script src="app.js"></script>
 </body>
 </html>
