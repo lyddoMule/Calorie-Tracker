@@ -1,6 +1,6 @@
 class CalorieTracker{
     constructor(){
-        this._calorieLimit= 2070;
+        this._calorieLimit= 2000;
         this._totalCalorie= 0;
         this._meals=[];
         this._workouts=[];
@@ -55,6 +55,20 @@ removeMeal(id) {
     //   Storage.removeWorkout(id);
       this._render();
     }
+  }
+  reset(){
+    if (confirm('Are you sure you want to reset?' )) {
+        this._totalCalorie=0;
+        this._meals=[]
+        this._workouts=[]
+        this._render()
+
+    }
+  }
+  setLimit(limit){
+    this._calorieLimit=limit
+    this._displayCalorieLimit()
+    this._render()
   }
 
 // private methods
@@ -184,6 +198,10 @@ class App{
         document.getElementById('workout-form').addEventListener('submit', this._newWorkout.bind(this)) 
         document.getElementById('displayMeal').addEventListener('click', this._removeMeal.bind(this)) 
         document.getElementById('displayWorkouts').addEventListener('click', this._removeWorkout.bind(this)) 
+        document.getElementById('filterMeals').addEventListener('keyup', this._filterMeals.bind(this)) 
+        document.getElementById('filterWorkouts').addEventListener('keyup', this._filterWorkouts.bind(this)) 
+        document.getElementById('reset').addEventListener('click', this._reset.bind(this)) 
+        document.getElementById('setLimitBtn').addEventListener('click', this._setLimit.bind(this)) 
     }
 
     _newMeal(e){
@@ -250,7 +268,51 @@ class App{
                 }
             }
        }
-}
+       _filterMeals(e){
+        const text= e.target.value.toLowerCase()
+        document.querySelectorAll(`#displayMeal .card`).forEach(item=>{
+            const name= item.firstElementChild.firstElementChild.textContent
+           
+            if (name.toLowerCase().indexOf(text)!== -1 ) {
+                // console.log(text);
+                item.style.display='block'
+            }else{
+                item.style.display='none'
+            }
+        })
+       }
 
+        _filterWorkouts(e){
+            // console.log(e.target.value);
+            const text= e.target.value.toLowerCase();
+            // const items=
+            document.querySelectorAll('#displayWorkouts .card').forEach(item=>{
+                const name= item.firstElementChild.firstElementChild.textContent;
+                if(name.toLowerCase().indexOf(text)!==-1){
+                    item.style.display='block'
+                }else{
+                    item.style.display='none'
+                }
+            })
+        }
+        _reset(){
+            this._tracker.reset();
+            document.getElementById('displayMeal').innerHTML=''
+            document.getElementById('displayWorkouts').innerHTML=''
+            document.getElementById('filterWorkouts').value=''
+            document.getElementById('filterMeals').value=''
+        }
+        _setLimit(){
+            const limit= document.getElementById('setLimit')
+            if (limit.value===''||limit.value===null) {
+                alert('Please add a limit')
+                
+            } else{
+                    this._tracker.setLimit(+limit.value)
+                } 
+                
+            limit.value=''
+        }
+}
 const app =new App()
 

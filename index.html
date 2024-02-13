@@ -16,8 +16,8 @@
                     Tracalorie</h1>
             </div>
             <div class="   ">
-                <button class="btn border text-light " data-bs-toggle="modal" data-bs-target="#setDailyLimit">Set Daily Limit</button>
-                <button class="btn border text-light   ">Reset Day</button>
+                <button class="btn border text-light "  data-bs-toggle="modal" data-bs-target="#setDailyLimit">Set Daily Limit</button>
+                <button class="btn border text-light   " id="reset">Reset Day</button>
             </div>
         </div>
     </nav>
@@ -104,7 +104,7 @@
             <div class="row g-4">
                 <!--food items  -->
                 <div class="col-md">
-                    <input type="text" class="form-control  filterMeals" placeholder="Filter Meals">
+                    <input type="text" class="form-control  " id="filterMeals" placeholder="Filter Meals">
                     
                     <div class="justify-content-between d-flex mt-3 p-1 border-start border-5 border-lightLime">
                         <h4>Meals / Food items</h4>
@@ -130,7 +130,7 @@
 
                 <!-- workouts -->
                 <div class="col-md">
-                    <input type="text" class="form-control  filterWorkouts" placeholder="Filter Workouts">
+                    <input type="text" class="form-control  " id="filterWorkouts" placeholder="Filter Workouts">
                     
                     <div class="justify-content-between d-flex mt-3 p-1 border-start border-5 border-orange">
                         <h4>Workouts </h4>
@@ -164,13 +164,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="setDailyLimitLabel">Set Daily Limit</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
           <input type="text" id="setLimit" class="form-control" placeholder="2000">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-lightLime text-light" data-bs-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-lightLime text-light" id="setLimitBtn" data-bs-dismiss="modal">Save</button>
         </div>
       </div>
     </div>
