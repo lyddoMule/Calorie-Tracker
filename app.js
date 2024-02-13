@@ -29,6 +29,34 @@ addWorkout(workout){
     this._displayWorkouts(workout)
     this._render()
 }
+
+removeMeal(id) {
+    const index = this._meals.findIndex((meal) => meal.id === id);
+
+    if (index !== -1) {
+      const meal = this._meals[index];
+      this._totalCalories -= meal.calories;
+    //   Storage.updateTotalCalories(this._totalCalories);
+      this._meals.splice(index, 1);
+    //   Storage.removeMeal(id);
+      this._render();
+    }
+  }
+
+
+  removeWorkout(id) {
+    const index = this._workouts.findIndex((workout) => workout.id === id);
+
+    if (index !== -1) {
+      const workout = this._workouts[index];
+      this._totalCalories += workout.calories;
+    //   Storage.updateTotalCalories(this._totalCalories);
+      this._workouts.splice(index, 1);
+    //   Storage.removeWorkout(id);
+      this._render();
+    }
+  }
+
 // private methods
 
 _displayCaloriesTotal(){
@@ -88,11 +116,13 @@ _displayMeal(meal){
     const display_meal= document.getElementById('displayMeal')
     const div= document.createElement('div')
     div.classList.add('card','mt-2')
+    div.setAttribute('data-id',meal.id)
+
     div.innerHTML=`
          <div  class="card-body p-1 ">   
             <div class="d-flex align-items-center justify-content-between">
                 <h5>${meal.name}</h5>
-                <button class="btn btn-lightLime text-light fw-bold "> ${meal.calories}</button>
+                <button class="btn delete btn-lightLime btn-sm text-light fw-bold "> ${meal.calories}</button>
                 <i class="bi bi-x bg-danger  text-light"></i>
             </div>    
         </div>`
@@ -104,11 +134,12 @@ _displayWorkouts(workout){
     const display_workout= document.getElementById('displayWorkouts')
     const div= document.createElement('div')
     div.classList.add('card','mt-2')
+    div.setAttribute('data-id',workout.id)
     div.innerHTML=`
          <div  class="card-body p-1 ">   
             <div class="d-flex align-items-center justify-content-between">
                 <h5>${workout.name}</h5>
-                <button class="btn btn-orange text-light fw-bold "> ${workout.calories}</button>
+                <button class="btn delete btn-orange btn-sm text-light fw-bold "> ${workout.calories}</button>
                 <i class="bi bi-x bg-danger  text-light"></i>
             </div>    
         </div>`
@@ -151,6 +182,8 @@ class App{
 
         document.getElementById('meal-form').addEventListener('submit', this._newMeal.bind(this)) 
         document.getElementById('workout-form').addEventListener('submit', this._newWorkout.bind(this)) 
+        document.getElementById('displayMeal').addEventListener('click', this._removeMeal.bind(this)) 
+        document.getElementById('displayWorkouts').addEventListener('click', this._removeWorkout.bind(this)) 
     }
 
     _newMeal(e){
@@ -196,12 +229,27 @@ class App{
         const bsCollapse= new bootstrap.Collapse(collapseWorkout, {
             toggle: true
         })
-
-    //    workout.forEach(workout=> {
-        
-    //    }); 
-
        }    
+
+       _removeMeal(e){
+        if(e.target.classList.contains('delete') || e.target.classList.contains('bi-x')){
+           if(confirm( 'Are you sure?')){
+              const id= e.target.closest('.card').getAttribute('data-id')
+             this._tracker.removeMeal(id);
+           const meal=  e.target.closest(`.card`).remove();
+           }
+
+        } 
+    }
+       _removeWorkout(e){
+            if(e.target.classList.contains('delete')||e.target.classList.contains('bi-x')){
+                if (confirm('Are you sure?')) {
+                    const id=e.target.closest('.card').getAttribute('data-id')
+                    this._tracker.removeWorkout(id)
+                    const workout=e.target.closest(`.card`).remove()
+                }
+            }
+       }
 }
 
 const app =new App()
