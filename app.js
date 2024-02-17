@@ -1,7 +1,7 @@
 class CalorieTracker{
     constructor(){
         this._calorieLimit= Storage.getCalorieLimit();
-        this._totalCalorie= Storage.getTotalCalories(0);
+        this._totalCalorie= Storage.getTotalCalories();
         this._meals=Storage.getMeal();
         this._workouts=Storage.getWorkouts();
       
@@ -43,7 +43,7 @@ class CalorieTracker{
         this._totalCalorie -= meal.calories;
         Storage.setTotalCalories(this._totalCalorie);
         this._meals.splice(index, 1);
-        //   Storage.removeMeal(id);
+        Storage.removeMeal(id);
         this._render();
         }
     }
@@ -56,19 +56,20 @@ class CalorieTracker{
             this._totalCalorie += workout.calories;
             Storage.setTotalCalories(this._totalCalorie);
             this._workouts.splice(index, 1);
-        //   Storage.removeWorkout(id);
+            Storage.removeWorkout(id);
             this._render();
         }
     }
 
     reset(){
-        if (confirm('Are you sure you want to reset?' )) {
             this._totalCalorie=0;
             this._meals=[]
             this._workouts=[]
+            Storage.setTotalCalories(this._totalCalorie);
+
+            Storage.removeAll()
             this._render()
 
-        }
     }
 
   setLimit(limit){
@@ -254,6 +255,16 @@ class Storage{
        localStorage.setItem('meals', JSON.stringify(meals))
     }
 
+        static removeMeal(id){
+            const meals = Storage.getMeal();
+            meals.forEach((meal, index)=>{
+                if(meal.id===id){
+                    meals.splice(index,1)
+                }
+                localStorage.setItem( 'meals' ,JSON.stringify(meals));
+            })
+        }
+
 
     static getWorkouts(){
         let workouts;
@@ -269,6 +280,24 @@ class Storage{
         workouts.push(workout)
         localStorage.setItem('workouts', JSON.stringify( workouts))
     }
+    static removeWorkout(id){
+        const workouts = Storage.getWorkouts();
+        workouts.forEach((workout, index)=>{
+            if(workout.id===id){
+                workouts.splice(index,1)
+            }
+            localStorage.setItem( 'workouts' ,JSON.stringify(workouts));
+        })
+    }
+
+    static removeAll(){
+        localStorage.removeItem('totalCalorie')
+        localStorage.removeItem('meals')
+        localStorage.removeItem('workouts')
+
+        // localStorage.clear()
+    }
+
 
 }
 class App{
@@ -287,58 +316,12 @@ class App{
     
     }
 
-    // _newMeal(e){
-    //     e.preventDefault()
-    //     const name= document.getElementById('meal-name')
-    //     const calories= document.getElementById('meal-calories')
-
-    //     // validation
-
-    //     if(name.value === '' && calories.value===''){
-    //         alert('Please fill in all fields')
-    //         return;
-    //     }
-    //     const meal= new  Meal(name.value , +calories.value)
-    //     this._tracker.addMeal(meal)
-
-    //     name.value = '';
-    //     calories.value = ''
-
-    //     const collapseMeal= document.getElementById('collapse-meal')
-    //     const bsCollapse= new bootstrap.Collapse(collapseMeal, {
-    //         toggle: true
-    //     })
-
-    // }
-    // _newWorkout(e){
-    //     e.preventDefault()
-    //     const name= document.getElementById('workout-name')
-    //     const calories= document.getElementById('workout-calories')
-
-    //     // validation
-
-    //     if(name.value === ''&&calories.value===''){
-    //         alert('Please fill in all fields')
-    //     }
-    //     const workout= new  Workout(name.value , +calories.value)
-    //     this._tracker.addWorkout(workout)
-    //     name.value = '';
-    //     calories.value = ''
-
-    //     const collapseWorkout= document.getElementById('collapse-workout')
-    //     const bsCollapse= new bootstrap.Collapse(collapseWorkout, {
-    //         toggle: true
-    //     })
-    //    }    
-
-
     _newItem(type, e) {
         e.preventDefault();
     
         const name = document.getElementById(`${type}-name`);
         const calories = document.getElementById(`${type}-calories`);
     
-        // Validate inputs
         if (name.value === '' || calories.value === '') {
           alert('Please fill in all fields');
           return;
@@ -361,53 +344,6 @@ class App{
         });
       }
   
-    //    _removeMeal(e){
-    //     if(e.target.classList.contains('delete') || e.target.classList.contains('bi-x')){
-    //        if(confirm( 'Are you sure?')){
-    //           const id= e.target.closest('.card').getAttribute('data-id')
-    //          this._tracker.removeMeal(id);
-    //        const meal=  e.target.closest(`.card`).remove();
-    //        }
-
-    //     } 
-    // }
-    //    _removeWorkout(e){
-    //         if(e.target.classList.contains('delete')||e.target.classList.contains('bi-x')){
-    //             if (confirm('Are you sure?')) {
-    //                 const id=e.target.closest('.card').getAttribute('data-id')
-    //                 this._tracker.removeWorkout(id)
-    //                 const workout=e.target.closest(`.card`).remove()
-    //             }
-    //         }
-    //    }
-
-
-
-  
-    //    _filterMeals(e){
-    //     const text= e.target.value.toLowerCase()
-    //     document.querySelectorAll(`#meal-items .card`).forEach(item=>{
-    //         const name= item.firstElementChild.firstElementChild.textContent
-           
-    //         if (name.toLowerCase().indexOf(text)!== -1 ) {
-    //             item.style.display='block'
-    //         }else{
-    //             item.style.display='none'
-    //         }
-    //     })
-    //    }
-
-    //     _filterWorkouts(e){
-    //         const text= e.target.value.toLowerCase();
-    //         document.querySelectorAll('#workout-items .card').forEach(item=>{
-    //             const name= item.firstElementChild.firstElementChild.textContent;
-    //             if(name.toLowerCase().indexOf(text)!==-1){
-    //                 item.style.display='block'
-    //             }else{
-    //                 item.style.display='none'
-    //             }
-    //         })
-    //     }
 
     _removeItem(type, e) {
         if (
