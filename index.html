@@ -104,16 +104,16 @@
             <div class="row g-4">
                 <!--food items  -->
                 <div class="col-md">
-                    <input type="text" class="form-control  " id="filterMeals" placeholder="Filter Meals">
+                    <input type="text" class="form-control  " id="filter-meals" placeholder="Filter Meals">
                     
                     <div class="justify-content-between d-flex mt-3 p-1 border-start border-5 border-lightLime">
                         <h4>Meals / Food items</h4>
                         <button  class="btn addMeal btn-lightLime text-light" 
                         data-bs-toggle="collapse"
-                        data-bs-target="#mealItems"><i class="fa fa-plus"></i> Add Meal</button>
+                        data-bs-target="#collapse-meal"><i class="fa fa-plus"></i> Add Meal</button>
                     </div>
 
-                    <div class="collapse" id="mealItems">
+                    <div class="collapse" id="collapse-meal">
                         <div class="container border bg-light ">
                             <form id="meal-form">
                                 <div class="p-3 " id="">
@@ -125,21 +125,21 @@
                         </div>
                     </div>
                     
-                    <div class="container" id="displayMeal"></div>
+                    <div class="container" id="meal-items"></div>
                 </div>
 
                 <!-- workouts -->
                 <div class="col-md">
-                    <input type="text" class="form-control  " id="filterWorkouts" placeholder="Filter Workouts">
+                    <input type="text" class="form-control  " id="filter-workouts" placeholder="Filter Workouts">
                     
                     <div class="justify-content-between d-flex mt-3 p-1 border-start border-5 border-orange">
                         <h4>Workouts </h4>
                         <button  class="btn addMeal btn-orange text-light" 
                         data-bs-toggle="collapse"
-                        data-bs-target="#workouts"><i class="fa fa-plus"></i> Add Workout</button>
+                        data-bs-target="#collapse-workout"><i class="fa fa-plus"></i> Add Workout</button>
                     </div>
 
-                    <div class="collapse" id="workouts">
+                    <div class="collapse" id="collapse-workout">
                         <div class="container border bg-light ">
                            <form  id="workout-form">
                                 <div class="p-3 ">
@@ -151,7 +151,7 @@
                         </div>
                     </div>
 
-                    <div class=" container  " id="displayWorkouts"></div>
+                    <div class=" container  " id="workout-items"></div>
                 </div>
             </div>
         </div>
