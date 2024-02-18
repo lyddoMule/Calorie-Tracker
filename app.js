@@ -66,7 +66,6 @@ class CalorieTracker{
             this._meals=[]
             this._workouts=[]
             Storage.setTotalCalories(this._totalCalorie);
-
             Storage.removeAll()
             this._render()
 
